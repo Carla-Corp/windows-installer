@@ -123,7 +123,6 @@ pub fn install(sink: ExtEventSink, installation: &str) {
             "-fpermissive",
             "-fexceptions",
             "main.cpp",
-            "libs/morgana/*.cpp",
             "-o",
             "../build/carla",
             "-I.",
