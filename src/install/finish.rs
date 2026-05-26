@@ -56,8 +56,8 @@ fn perform_file_operations(sink: Arc<ExtEventSink>, installation: ArcStr) -> io:
     }
 
     let morgana_libs_source = PathBuf::from("temp/morgana-main/compiler/libs/x86_64-windows");
-    let morgana_libs_runa = bin_path.join("runa.dll");
-    let morgana_libs_eva = bin_path.join("eva.dll");
+    let morgana_libs_runa = morgana_libs_source.join("runa.dll");
+    let morgana_libs_eva = morgana_libs_source.join("eva.dll");
     let morgana_libs_runa_dest = bin_path.join("runa.dll");
     let morgana_libs_eva_dest = bin_path.join("eva.dll");
     if morgana_libs_source.exists() {
