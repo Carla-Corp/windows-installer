@@ -55,6 +55,17 @@ fn perform_file_operations(sink: Arc<ExtEventSink>, installation: ArcStr) -> io:
         fs::copy(&morgana_exe_source, &morgana_exe_dest)?;
     }
 
+    let morgana_libs_source = PathBuf::from("temp/morgana-main/compiler/libs/x86_64-windows");
+    let morgana_libs_runa = bin_path.join("runa.dll");
+    let morgana_libs_eva = bin_path.join("eva.dll");
+    let morgana_libs_runa_dest = bin_path.join("runa.dll");
+    let morgana_libs_eva_dest = bin_path.join("eva.dll");
+    if morgana_libs_source.exists() {
+        fs::copy(&morgana_libs_runa, &morgana_libs_runa_dest)?;
+        fs::copy(&morgana_libs_eva, &morgana_libs_eva_dest)?;
+    }
+
+
     let extensors_path = carla_path.join("extensors");
     fs::create_dir_all(&extensors_path)?;
 
