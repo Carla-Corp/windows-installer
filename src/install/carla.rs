@@ -126,6 +126,8 @@ pub fn install(sink: ExtEventSink, installation: &str) {
             "-o",
             "../build/carla",
             "-I.",
+            "-L./libs/x86_64-windows",
+            "-leva"
         ])
         .status()
         .expect("failed to execute g++");
