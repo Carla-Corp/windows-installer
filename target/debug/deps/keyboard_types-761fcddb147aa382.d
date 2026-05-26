@@ -1,0 +1,10 @@
+/home/dev_lucasfs/Documents/windows-installer/target/debug/deps/keyboard_types-761fcddb147aa382.d: /home/dev_lucasfs/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/keyboard-types-0.6.2/src/lib.rs /home/dev_lucasfs/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/keyboard-types-0.6.2/src/code.rs /home/dev_lucasfs/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/keyboard-types-0.6.2/src/key.rs /home/dev_lucasfs/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/keyboard-types-0.6.2/src/location.rs /home/dev_lucasfs/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/keyboard-types-0.6.2/src/modifiers.rs /home/dev_lucasfs/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/keyboard-types-0.6.2/src/shortcuts.rs
+
+/home/dev_lucasfs/Documents/windows-installer/target/debug/deps/libkeyboard_types-761fcddb147aa382.rmeta: /home/dev_lucasfs/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/keyboard-types-0.6.2/src/lib.rs /home/dev_lucasfs/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/keyboard-types-0.6.2/src/code.rs /home/dev_lucasfs/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/keyboard-types-0.6.2/src/key.rs /home/dev_lucasfs/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/keyboard-types-0.6.2/src/location.rs /home/dev_lucasfs/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/keyboard-types-0.6.2/src/modifiers.rs /home/dev_lucasfs/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/keyboard-types-0.6.2/src/shortcuts.rs
+
+/home/dev_lucasfs/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/keyboard-types-0.6.2/src/lib.rs:
+/home/dev_lucasfs/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/keyboard-types-0.6.2/src/code.rs:
+/home/dev_lucasfs/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/keyboard-types-0.6.2/src/key.rs:
+/home/dev_lucasfs/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/keyboard-types-0.6.2/src/location.rs:
+/home/dev_lucasfs/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/keyboard-types-0.6.2/src/modifiers.rs:
+/home/dev_lucasfs/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/keyboard-types-0.6.2/src/shortcuts.rs:

@@ -1,0 +1,11 @@
+/home/dev_lucasfs/Documents/windows-installer/target/debug/deps/sha1-acb756f63ddb90a6.d: /home/dev_lucasfs/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/sha1-0.11.0/src/lib.rs /home/dev_lucasfs/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/sha1-0.11.0/src/block_api.rs /home/dev_lucasfs/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/sha1-0.11.0/src/compress.rs /home/dev_lucasfs/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/sha1-0.11.0/src/consts.rs /home/dev_lucasfs/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/sha1-0.11.0/src/../README.md /home/dev_lucasfs/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/sha1-0.11.0/src/compress/soft.rs /home/dev_lucasfs/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/sha1-0.11.0/src/compress/x86_sha.rs
+
+/home/dev_lucasfs/Documents/windows-installer/target/debug/deps/libsha1-acb756f63ddb90a6.rmeta: /home/dev_lucasfs/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/sha1-0.11.0/src/lib.rs /home/dev_lucasfs/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/sha1-0.11.0/src/block_api.rs /home/dev_lucasfs/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/sha1-0.11.0/src/compress.rs /home/dev_lucasfs/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/sha1-0.11.0/src/consts.rs /home/dev_lucasfs/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/sha1-0.11.0/src/../README.md /home/dev_lucasfs/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/sha1-0.11.0/src/compress/soft.rs /home/dev_lucasfs/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/sha1-0.11.0/src/compress/x86_sha.rs
+
+/home/dev_lucasfs/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/sha1-0.11.0/src/lib.rs:
+/home/dev_lucasfs/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/sha1-0.11.0/src/block_api.rs:
+/home/dev_lucasfs/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/sha1-0.11.0/src/compress.rs:
+/home/dev_lucasfs/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/sha1-0.11.0/src/consts.rs:
+/home/dev_lucasfs/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/sha1-0.11.0/src/../README.md:
+/home/dev_lucasfs/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/sha1-0.11.0/src/compress/soft.rs:
+/home/dev_lucasfs/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/sha1-0.11.0/src/compress/x86_sha.rs:

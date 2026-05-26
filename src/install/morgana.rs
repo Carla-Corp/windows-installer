@@ -129,9 +129,9 @@ pub fn install(sink: ExtEventSink, installation: &str) {
             "-o",
             "../bin/morgana",
             "-I.",
-            "-L./libs/windows/x86_64",
+            "-L./libs/x86_64-windows",
             "-leva",
-            "-runa"
+            "-lruna"
         ])
         .status()
         .expect("failed to execute g++");
