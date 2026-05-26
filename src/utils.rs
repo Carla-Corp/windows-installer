@@ -71,10 +71,9 @@ pub fn setup_path(dir: String) {
 
 #[cfg(windows)]
 pub fn notification_sound() {
-    use windows::Win32::UI::WindowsAndMessaging::MessageBeep;
-
+    use winapi::um::winuser::*;
     unsafe {
-        MessageBeep(0xFFFFFFFF);
+        MessageBeep(MB_OK);
     }
 }
 
