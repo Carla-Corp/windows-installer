@@ -61,8 +61,13 @@ fn perform_file_operations(sink: Arc<ExtEventSink>, installation: ArcStr) -> io:
     let morgana_libs_runa_dest = bin_path.join("runa.dll");
     let morgana_libs_eva_dest = bin_path.join("eva.dll");
     if morgana_libs_source.exists() {
-        fs::copy(&morgana_libs_runa, &morgana_libs_runa_dest)?;
-        fs::copy(&morgana_libs_eva, &morgana_libs_eva_dest)?;
+        let Ok(_) = fs::copy(&morgana_libs_runa, &morgana_libs_runa_dest) else {
+            return Err(io::Error::new(io::ErrorKind::Other, format!("Failed to copy runa.dll: {}", morgana_libs_runa.display())));
+        };
+
+        let Ok(_) = fs::copy(&morgana_libs_eva, &morgana_libs_eva_dest) else {
+            return Err(io::Error::new(io::ErrorKind::Other, format!("Failed to copy eva.dll: {}", morgana_libs_eva.display())));
+        };
     }
 
 
