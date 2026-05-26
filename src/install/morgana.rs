@@ -123,13 +123,15 @@ pub fn install(sink: ExtEventSink, installation: &str) {
             "-fexceptions",
             "-lm",
             "main.cpp",
-            "libs/windows/x86_64/libruna.a",
             "-lws2_32",
             "-luserenv",
             "-lntdll",
             "-o",
             "../bin/morgana",
             "-I.",
+            "-L./libs/windows/x86_64",
+            "-leva",
+            "-runa"
         ])
         .status()
         .expect("failed to execute g++");
