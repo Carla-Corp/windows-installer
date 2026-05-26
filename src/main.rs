@@ -1,24 +1,30 @@
-use druid::widget::*;
 use druid::*;
+use widget::*;
 
-mod install;
-mod notify;
+use crate::screens::AppState;
+use std::sync::mpsc;
+
 mod screens;
+mod check;
+mod macros;
+mod install;
 mod utils;
 
-#[derive(Clone, Data, Lens, Default)]
-pub struct AppState {
-    install: String,
-    page: usize,
-    progress: f64,
-    alert: bool,
-    a: i8,
-}
-
 pub const SET_PROGRESS: Selector<f64> = Selector::new("carla.set-progress");
-pub const SET_PAGE: Selector<usize> = Selector::new("carla.set-page");
-pub const SET_ALERT: Selector<bool> = Selector::new("carla.set-alert");
-pub const COMPLETED: Selector<bool> = Selector::new("carla.completed");
+const GET_ALERT: Selector<mpsc::Sender<bool>> =
+    Selector::new("carla.get-alert");
+
+#[cfg(target_os = "windows")]
+pub const INSTALLATION_PATH: &str = r"C:\.carla";
+
+#[cfg(target_os = "linux")]
+pub const INSTALLATION_PATH: &str = r"~/.carla";
+
+#[cfg(target_os = "macos")]
+pub const INSTALLATION_PATH: &str = r"/Users/Shared/.carla";
+
+#[cfg(target_os = "freebsd")]
+pub const INSTALLATION_PATH: &str = r"/usr/local/.carla";
 
 pub struct AppController;
 
@@ -38,22 +44,8 @@ impl<W: Widget<AppState>> Controller<AppState, W> for AppController {
                 return;
             }
 
-            if let Some(page) = cmd.get(SET_PAGE) {
-                data.page = *page;
-                ctx.request_layout();
-                return;
-            }
-
-            if let Some(alert) = cmd.get(SET_ALERT) {
-                data.alert = *alert;
-                return;
-            }
-
-            if let Some(_) = cmd.get(COMPLETED) {
-                if data.alert {
-                    notify::notify("Carla & Morgana sent a message", "finished installation");
-                }
-                data.page = 2;
+            if let Some(sender) = cmd.get(GET_ALERT) {
+                sender.send(data.alert).unwrap();
                 return;
             }
         }
@@ -63,37 +55,23 @@ impl<W: Widget<AppState>> Controller<AppState, W> for AppController {
 }
 
 fn main() {
-    let state = AppState {
-        install: r"C:\.carla".into(),
-        progress: 0.03,
+    #[cfg(not(target_os = "windows"))]
+    let window = WindowDesc::new(screens::ui_builder())
+        .title("Carla & Morgana installer (GUI)")
+        .window_size((700.0, 250.0))
+        .resizable(false);
+
+    #[cfg(target_os = "windows")]
+    let window = WindowDesc::new(screens::ui_builder())
+        .title("Carla & Morgana installer")
+        .window_size((800.0, 250.0))
+        .resizable(false);
+
+    let state = screens::AppState {
+        std_path: if check::installation() { check::get_installation() } else { INSTALLATION_PATH.to_string() },
         ..Default::default()
     };
 
-    let main_window = WindowDesc::new(ui_builder())
-        .resizable(false)
-        .title("Carla & Morgana Installer")
-        .window_size((600.0, 250.0));
-
-    AppLauncher::with_window(main_window).launch(state).unwrap();
-}
-
-fn ui_builder() -> impl Widget<AppState> {
-    Flex::column()
-        .with_flex_child(
-            Either::new(
-                |data: &AppState, _| data.page == 0,
-                screens::home::page(),
-                Either::new(
-                    |data: &AppState, _| data.page == 1,
-                    screens::installer::page(),
-                    screens::finished::page(),
-                ),
-            ),
-            1.0,
-        )
-        .controller(AppController)
-}
-
-pub fn show_error(err: impl ToString) {
-    notify::notify("Carla & Morgana Installer sent an error", &err.to_string());
+    _ = AppLauncher::with_window(window)
+        .launch(state);
 }

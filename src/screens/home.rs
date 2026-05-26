@@ -1,102 +1,91 @@
-use druid::piet::TextStorage;
 use druid::*;
+use rfd::FileDialog;
 use widget::*;
 
-use std::process::Command;
-
-use crate::notify::notify;
-use crate::utils::beep;
-use crate::*;
-
-use crate::install::dependencies;
-
-static mut INSTALLING: bool = true;
+use crate::{install, macros::*, screens::{AppState, Page}};
 
 pub fn page() -> impl Widget<AppState> {
-    let column = Flex::column();
+    let installation = crate::check::installation();
 
-    let title = "Carla & Morgana installer";
-    let subtitle = "Enter the location where Carla and Morgana will be installed.";
-    column
+    Flex::column()
+        .cross_axis_alignment(CrossAxisAlignment::Start)
         .with_child(
-            Label::new(title)
-                .with_text_size(KeyOrValue::Concrete(32.0))
-                .align_left()
-                .padding(KeyOrValue::Concrete(Insets {
-                    x0: 30f64,
-                    y0: 20f64,
-                    x1: 30f64,
-                    y1: 20f64,
-                })),
+            std_padding!(
+                Label::new("Carla & Morgana installer")
+                    .with_text_size(KeyOrValue::Concrete(32.0))
+            )
         )
         .with_child(
-            Label::new(subtitle)
-                .with_text_size(KeyOrValue::Concrete(16.0))
-                .align_left()
-                .padding(KeyOrValue::Concrete(Insets {
-                    x0: 30f64,
-                    y0: 5f64,
-                    x1: 30f64,
-                    y1: 5f64,
-                })),
+            std_padding_less_text!(
+                Label::new(
+                    if installation { "After a verification, was possible to identify you have an Carla and Morgana installation." }
+                    else { "After a verification, was possible to identify you don't have an Carla and Morgana installation." }
+                )
+                    .with_text_size(KeyOrValue::Concrete(16.0))
+                    .with_line_break_mode(LineBreaking::WordWrap)
+            )
         )
         .with_child(
-            TextBox::new()
-                .with_placeholder("Enter installation path")
-                .lens(AppState::install)
-                .fix_width(500f64)
-                .padding(KeyOrValue::Concrete(Insets {
-                    x0: 30f64,
-                    y0: 5f64,
-                    x1: 30f64,
-                    y1: 5f64,
-                }))
-                .align_left(),
-        )
-        .with_child(
-            Button::new("Install")
-                .on_click(|ctx, state: &mut AppState, _| {
-                    if state.install.is_empty() {
-                        beep();
-                        return;
-                    }
+            Flex::column()
+                .cross_axis_alignment(CrossAxisAlignment::Start)
+                .with_child(
+                    Flex::row()
+                        .with_spacer(KeyOrValue::Concrete(2.0))
+                        .with_child(
+                            Container::new(
+                                Flex::row()
+                                    .with_spacer(KeyOrValue::Concrete(2.0))
+                                    .with_child(
+                                        std_padding_less!(
+                                            TextBox::new()
+                                                .with_placeholder("Enter installation path")
+                                                .lens(AppState::std_path)
+                                                .fix_width(500f64)
+                                                .align_left()
+                                        )
+                                    )
+                            )
+                        )
+                        .with_child(
+                            Button::new("Find folder")
+                                .on_click(move |_, state: &mut AppState, _| {
+                                    let folder = FileDialog::new()
+                                            .set_directory("/")
+                                            .pick_folder();
 
-                    if !dependencies::check() {
-                        show_error("Missing dependencies");
-                        Command::new("cmd")
-                            .arg("/c")
-                            .arg("start")
-                            .arg("msedge")
-                            .arg("https:/github.com/Carla-corp/dependencies")
-                            .spawn()
-                            .ok();
-                        return;
-                    }
+                                    let Some(path) = folder else { return; };
 
-                    state.page = 1;
+                                    if !installation {
+                                        state.std_path =
+                                            path.join(".carla")
+                                                .to_string_lossy()
+                                                .to_string();
+                                    }
+                                })
+                                .fix_height(30.0)
+                        )
+                        .padding(KeyOrValue::Concrete(Insets { x0: 0.0, y0: 10.0, x1: 0.0, y1: 5.0 }))
+                )
+            .with_child(
+                std_padding_less!(
+                    Button::new(if installation { "Reinstall (update)" } else { "Install" })
+                        .on_click(move |ctx, state: &mut AppState, _| {
+                            if installation && state.std_path != crate::check::get_installation() {
+                                rfd::MessageDialog::new()
+                                    .set_title("Reinstall")
+                                    .set_description("You already have an installation and before pressing the reinstall button, the path was changed. The previous installation path will be used.")
+                                    .show();
 
-                    let carla_install = ArcStr::from(state.install.clone());
-                    let carla_sink = ctx.get_external_handle();
-                    _ = std::thread::spawn(move || {
-                        println!("running carla");
-                        install::carla::install(carla_sink, carla_install.as_str());
-                    });
+                                state.std_path = crate::check::get_installation();
+                            }
 
-                    let morgana_install = ArcStr::from(state.install.clone());
-                    let morgana_sink = ctx.get_external_handle();
-                    _ = std::thread::spawn(move || {
-                        println!("running morgana");
-                        install::morgana::install(morgana_sink, morgana_install.as_str());
-                    });
-                })
-                .padding(KeyOrValue::Concrete(Insets {
-                    x0: 30f64,
-                    y0: 5f64,
-                    x1: 30f64,
-                    y1: 5f64,
-                }))
-                .fix_width(300f64)
-                .fix_height(40f64)
-                .align_left(),
+                            state.page = Page::Installing;
+                            install::install(ctx, state);
+                        })
+                        .fix_width(300f64)
+                        .fix_height(30f64)
+                        .align_left()
+                )
+            )
         )
 }
