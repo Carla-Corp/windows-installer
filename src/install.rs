@@ -32,10 +32,6 @@ fn run(command: &str) {
     }
 }
 
-fn main() {
-    run("echo hello");
-}
-
 const CDN: &'static str = "https://carla-cdn.vercel.app/";
 
 pub fn install(ctx: &mut EventCtx<'_, '_>, state: &mut AppState) {
